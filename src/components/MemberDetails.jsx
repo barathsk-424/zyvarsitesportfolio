@@ -40,7 +40,7 @@ const MemberDetails = ({ team }) => {
           <ArrowLeft size={18} /> Back
         </motion.button>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem', alignItems: 'start' }}>
+        <div className="member-grid">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -74,7 +74,7 @@ const MemberDetails = ({ team }) => {
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             <span className="badge">{member.role}</span>
-            <h1 className="gradient-text" style={{ fontSize: '3.5rem', marginBottom: '1rem' }}>{member.name}</h1>
+            <h1 className="gradient-text member-name">{member.name}</h1>
             <p style={{ fontSize: '1.2rem', marginBottom: '1.5rem', maxWidth: '100%' }}>
               {member.description}
             </p>
@@ -110,7 +110,7 @@ const MemberDetails = ({ team }) => {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div className="member-actions">
               <Link 
                 to="/contact"
                 className="btn btn-primary" 

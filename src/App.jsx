@@ -256,6 +256,7 @@ const Navbar = ({ currentTheme, setTheme }) => {
   const isHome = location.pathname === '/';
 
   const getNavLink = (id) => isHome ? `#${id}` : `/#${id}`;
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <nav className="navbar" style={{ 
@@ -271,13 +272,33 @@ const Navbar = ({ currentTheme, setTheme }) => {
           window.location.href = '/';
           window.location.reload();
         }}
-        style={{ fontWeight: 800, fontSize: '1.6rem', color: 'var(--primary)', textDecoration: 'none', letterSpacing: '-1px' }}
+        style={{ fontWeight: 800, fontSize: '1.4rem', color: 'var(--primary)', textDecoration: 'none', letterSpacing: '-1px', zIndex: 1001 }}
       >
         ZyvraSites
       </a>
-      <div className="nav-links">
+
+      {/* Hamburger Icon */}
+      <button 
+        className="mobile-menu-btn" 
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        style={{ zIndex: 1001 }}
+      >
+        <div className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+
+      <div className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         {['about', 'services', 'projects', 'team'].map(item => (
-          <a key={item} href={getNavLink(item)} className="nav-link" style={{ textTransform: 'capitalize' }}>{item}</a>
+          <a 
+            key={item} 
+            href={getNavLink(item)} 
+            className="nav-link" 
+            style={{ textTransform: 'capitalize' }}
+            onClick={() => setIsMobileMenuOpen(false)}
+          >{item}</a>
         ))}
         <div className="theme-switcher">
           {[
@@ -295,7 +316,7 @@ const Navbar = ({ currentTheme, setTheme }) => {
             </button>
           ))}
         </div>
-        <Link to="/contact" className="btn btn-primary" style={{ padding: '0.6rem 1.8rem', fontSize: '0.9rem', borderRadius: '100px' }}>Contact Sales</Link>
+        <Link to="/contact" className="btn btn-primary contact-btn" style={{ borderRadius: '100px' }} onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
       </div>
     </nav>
   );
@@ -435,19 +456,12 @@ const HomePage = ({ team, theme, setTheme }) => (
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
-            className="badge"
-            style={{ 
-              background: 'var(--surface)', 
-              backdropFilter: 'blur(10px)',
-              padding: '0.8rem 1.5rem',
-              fontSize: '0.9rem',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.1)' 
-            }}
+            className="badge hero-badge"
           >
             Digital Excellence
           </motion.span>
           
-          <h1 className="gradient-text" style={{ maxWidth: '1000px', margin: '2rem auto' }}>
+          <h1 className="gradient-text hero-title">
             We Build Websites for Local Businesses & Help Them Grow Online
           </h1>
           
@@ -455,14 +469,7 @@ const HomePage = ({ team, theme, setTheme }) => (
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            style={{ 
-              margin: '0 auto 4rem', 
-              fontSize: '1.35rem', 
-              fontWeight: 400,
-              maxWidth: '800px',
-              animation: 'float-y-medium 7s ease-in-out infinite alternate',
-              color: 'var(--text-muted)'
-            }}
+            className="hero-description"
           >
             We create simple, professional websites for small shops and manage everything — from website updates to social media marketing.
           </motion.p>
@@ -471,10 +478,8 @@ const HomePage = ({ team, theme, setTheme }) => (
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
+            className="hero-buttons"
             style={{ 
-              display: 'flex', 
-              gap: '1.5rem', 
-              justifyContent: 'center',
               animation: 'float-y-fast 6s ease-in-out infinite alternate'
             }}
           >
@@ -483,7 +488,7 @@ const HomePage = ({ team, theme, setTheme }) => (
               className="btn btn-primary"
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              style={{ padding: '1.2rem 2.5rem', fontSize: '1.1rem' }}
+              style={{ padding: '1rem 2rem' }}
             >
               Get Started <ArrowRight size={22} />
             </motion.a>
@@ -496,8 +501,7 @@ const HomePage = ({ team, theme, setTheme }) => (
                 color: 'var(--text-main)',
                 background: 'var(--glass)',
                 backdropFilter: 'blur(10px)',
-                padding: '1.2rem 2.5rem',
-                fontSize: '1.1rem'
+                padding: '1rem 2rem'
               }}
             >
               Our Story
@@ -633,7 +637,7 @@ We create simple and affordable websites, manage updates, and handle complete so
 
     {/* Business Model */}
     <section className="container">
-      <div className="glass-card" style={{ background: 'var(--surface-accent)', borderRadius: '32px', padding: '5rem' }}>
+      <div className="glass-card business-model-card" style={{ background: 'var(--surface-accent)' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
           <div>
             <span className="badge">OUR PLANS</span>
@@ -675,7 +679,7 @@ We create simple and affordable websites, manage updates, and handle complete so
 
     {/* Contact Section */}
     <footer id="contact" className="container" style={{ paddingBottom: '4rem' }}>
-      <div className="glass-card" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', padding: '4rem' }}>
+      <div className="glass-card footer-card" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem' }}>
         <div>
           <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--primary)' }}>Let's Build Your Future.</h2>
           <p style={{ marginBottom: '2rem' }}>Join scores of businesses already scaling with ZyvraSites. Your digital transformation starts here.</p>

@@ -52,20 +52,15 @@ const Contact = () => {
           </p>
         </div>
 
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-          gap: '3rem',
-          alignItems: 'start'
-        }}>
+        <div className="contact-grid">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="glass-card" style={{ padding: '3rem' }}>
-              <h2 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Contact Information</h2>
+            <div className="glass-card contact-info-card">
+              <h2>Contact Information</h2>
               <div style={{ display: 'grid', gap: '2.5rem' }}>
                 <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
                   <div className="badge" style={{ padding: '1rem', marginBottom: 0 }}><Mail size={24} /></div>
@@ -99,8 +94,7 @@ const Contact = () => {
             transition={{ delay: 0.3 }}
           >
             <form 
-              className="glass-card" 
-              style={{ padding: '3rem' }}
+              className="glass-card contact-form" 
               onSubmit={(e) => {
                 e.preventDefault();
                 alert('Thank you for your message! We will get back to you soon.');
